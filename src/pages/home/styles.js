@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -14,16 +14,22 @@ export const Content = styled.div`
   margin: 0 auto;
   text-align: center;
 
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
+`
 
-  img {
+export const ContentCampo = styled.div`
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+`
+export const BoxCampo = styled.div`
+  position: relative;
+
+  & > img {
     width: 100%;
     max-width: 800px;
 
     height: auto;
-
   }
-
 `
