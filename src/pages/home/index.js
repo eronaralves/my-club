@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // Styles
-import {Container, Content, ContentCampo, BoxCampo} from './styles'
+import {Container, Content, ContentCampo, BoxCampo, BoxEscalation} from './styles'
 
 // Components
 import {Header} from '../../components/Header'
@@ -11,75 +11,82 @@ import {PerfilPlayer} from "../../components/PerfilPlayer"
 import Campo from '../../assets/images/campo.png'
 
 export const SIGLA_POSICOES = {
-  goleiro: 'GOL',
-  zagueiro: 'ZAG',
-  lateralEsquerdo: 'LE',
-  lateralDireito: 'LD',
-  meioCampo: 'MC',
-  atacante: 'ATA'
+  goleiro: 1,
+  lateral: 2,
+  zagueiro: 3,
+  meioCampo: 4,
+  atacante: 5
 }
+const timeCompleto = [
+  {
+    posicao_id: SIGLA_POSICOES.goleiro,
+    apelido: 'Goleiro'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.zagueiro,
+    apelido: 'Zagueiro'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.zagueiro,
+    apelido: 'Zagueiro'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.lateral,
+    apelido: 'Lateral'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.lateral,
+    apelido: 'Lateral'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.meioCampo,
+    apelido: 'Meio'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.meioCampo,
+    apelido: 'Meio'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.meioCampo,
+    apelido: 'Meio'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.atacante,
+    apelido: 'Atacante'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.atacante,
+    apelido: 'Atacante'
+  },
+  {
+    posicao_id: SIGLA_POSICOES.atacante,
+    apelido: 'Atacante'
+  }
+]
 
 export function Home() {
   const [athletes, setAthletes] = useState([])
   const [club, setClube] = useState([])
+  const [positions, setPositions] = useState([])
+  const [playerScaled, setPlayerScaled] = useState(timeCompleto)
+
+  
+
   useEffect(() => {
     fetch('https://api.cartola.globo.com/atletas/mercado')
     .then(res => res.json())
     .then(data => {
       setAthletes(data.atletas)
-      setClube(data.clube)
-
+      setClube(data.clubes)
+      setPositions(data)
       console.log(data)
     })
+    
   }, [])
 
 
-  const timeCompleto = [
-    {
-      id: 1,
-      posicao: SIGLA_POSICOES.goleiro
-    },
-    {
-      id: 2,
-      posicao: SIGLA_POSICOES.zagueiro
-    },
-    {
-      id: 3,
-      posicao: SIGLA_POSICOES.zagueiro
-    },
-    {
-      id: 4,
-      posicao: SIGLA_POSICOES.lateralEsquerdo
-    },
-    {
-      id: 5,
-      posicao: SIGLA_POSICOES.lateralDireito
-    },
-    {
-      id: 6,
-      posicao: SIGLA_POSICOES.meioCampo
-    },
-    {
-      id: 7,
-      posicao: SIGLA_POSICOES.meioCampo
-    },
-    {
-      id: 8,
-      posicao: SIGLA_POSICOES.meioCampo
-    },
-    {
-      id: 9,
-      posicao: SIGLA_POSICOES.atacante
-    },
-    {
-      id: 10,
-      posicao: SIGLA_POSICOES.atacante
-    },
-    {
-      id: 11,
-      posicao: SIGLA_POSICOES.atacante
-    }
-  ]
+
+  
 
   return (
     <Container>
@@ -87,11 +94,17 @@ export function Home() {
       <Content>
         <ContentCampo>
           <BoxCampo>
-            <img src={Campo}/>
-            {timeCompleto.map(item => (
-              <PerfilPlayer posicao_id={item.posicao} idPlayer={item.id}/>
+          <img src={Campo}/>
+            {playerScaled.map((item, index) => (
+                <PerfilPlayer posicao_id={item.posicao_id} idPlayer={index + 1} apelido={item.apelido}/>
             ))}
           </BoxCampo>
+          {/* <BoxEscalation>
+            <h2>Jogadores</h2>
+            <div>
+
+            </div>
+          </BoxEscalation> */}
         </ContentCampo>
       </Content>
     </Container>

@@ -3,12 +3,16 @@ import styled , {css} from "styled-components"
 import {SIGLA_POSICOES} from '../../pages/home'
 
 export const ContainerPlayer = styled.div`
-  padding: 10px;
+  width: 100%;
+  max-width: 80px;
   position: absolute;
+
   cursor: pointer;
+  padding: 10px;
+  
 
   img {
-    width: 70px;
+    width: 100%;
     display: block;
   }
 
@@ -18,7 +22,7 @@ export const ContainerPlayer = styled.div`
   }
 
   ${props => {
-    if(props.posicao === 'GOL') {
+    if(props.posicao === 1) {
       return css`
         bottom: 13%;
         left: 50%;
@@ -29,21 +33,22 @@ export const ContainerPlayer = styled.div`
           transition: all ease .2s;
         }
       `
-    } else if(props.posicao === 'LD') {
-      return css`
-        right: 12%;
-        bottom: 30%;
-      `
-    }
-    else if(props.posicao === 'LE') {
+    } else if(props.posicao === 2) {
+      if(props.idPlayer === 4) {
+        return css`
+          right: 12%;
+          bottom: 30%;
+          
+        `
+      }
       return css`
         position: absolute;
         left: 12%;
         bottom: 30%;
       `
     }
-    else if(props.posicao === 'ZAG') {
-      if(props.idPlayer === 2) {
+    else if(props.posicao === 3) {
+      if(props.idPlayer === 3) {
         return css`
           bottom: 30%;
           left: 32%;
@@ -55,7 +60,7 @@ export const ContainerPlayer = styled.div`
         right: 32%;
       `
     }
-    else if(props.posicao === 'MC') {
+    else if(props.posicao === 4) {
       if(props.idPlayer === 6) {
         return css`
           bottom: 52%;
@@ -69,19 +74,19 @@ export const ContainerPlayer = styled.div`
         `    
       }
 
-      if(props.idPlayer === 7) {
+      if(props.idPlayer === 8) {
         return css`
           bottom: 52%;
           left: 16%;
         `
       }
-
+      
       return css`
         bottom: 52%;
         right: 16%;
       `
     }
-    else if(props.posicao === 'ATA') {
+    else if(props.posicao === 5) {
 
       if(props.idPlayer === 9) {
         return css`
@@ -110,20 +115,20 @@ export const ContainerPlayer = styled.div`
   }}
 
   @media(max-width: 530px) {
+    width: 100%;
+    max-width: 60px;
+
     img {
-      width: 50px;
+      width: 100%;
       display: block;
     }
   }
 
   @media(max-width: 390px) {
-    img {
-      width: 40px;
-      display: block;
-    }
+
 
     ${props => {
-      if(props.posicao === 'MC') {
+      if(props.posicao === 4) {
         return css`
           bottom: 50%;
         `
@@ -134,10 +139,15 @@ export const ContainerPlayer = styled.div`
 `
 
 export const DescriptionPlayer = styled.div`
-  width: 100%;
-  height: 9px;
-  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  width: 100%;
+  height: 14px;
+  
+  border-radius: 0px 0px 4px 4px;
+  
   background-color: #FFCB0A;
   
   h2 {
