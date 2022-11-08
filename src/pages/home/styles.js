@@ -2,15 +2,14 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: calc(100% - 70px);
-  
+  height: 100%;
 
 `
 
 export const Content = styled.div`
   width: 100%;
   max-width: 1440px;
-  height: 100%;
+  height: calc(100vh - 90px);
 
   margin: 0 auto;
   text-align: center;
@@ -27,6 +26,7 @@ export const ContentCampo = styled.div`
 `
 export const BoxCampo = styled.div`
   position: relative;
+
 
   & > img {
     width: 100%;
