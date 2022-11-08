@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100% - 70px);
 
 `
 
@@ -17,6 +17,7 @@ export const Content = styled.div`
 `
 
 export const ContentCampo = styled.div`
+  height: 100%;
 
   display: flex;
   align-items: center;
