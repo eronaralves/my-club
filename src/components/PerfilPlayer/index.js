@@ -5,7 +5,7 @@ import PlayerVazio from '../../assets/images/player-vazio.png'
 export function PerfilPlayer(props) {
 
   return (
-    <ContainerPlayer posicao={props.posicao_id} idPlayer={props.idPlayer}>
+    <ContainerPlayer {...props} posicao={props.posicao_id} idPlayer={props.idPlayer}>
         <img src={PlayerVazio} alt=""/>
         {/* <img src={props.item.foto.replace('FORMATO', "220x220")}/> */}
         <DescriptionPlayer>

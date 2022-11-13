@@ -4,8 +4,12 @@ export const Container = styled.div`
   width: 100%;
   height: 70px;
 
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+
   padding-inline: 50px;
-  margin-bottom: 16px;
   background-color: #007330;
 
 `

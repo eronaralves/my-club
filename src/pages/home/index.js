@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from 'react'
 
 // Styles
-import {Container, Content, ContentCampo, BoxCampo, BoxEscalation} from './styles'
+import {
+  Container,
+  Content, 
+  ContentCampo, 
+  BoxCampo, 
+  BoxEscalation, 
+  ContainerCampo,
+  ContainerPerfilPlayers,
+  ContainerModal,
+  PerfilScaled
+} from './styles'
 
 // Components
 import {Header} from '../../components/Header'
 import {PerfilPlayer} from "../../components/PerfilPlayer"
+import {PerfilPlayerScaled} from "../../components/PerfilPlayerscaled"
 
 // Images
 import Campo from '../../assets/images/campo.png'
@@ -17,50 +28,116 @@ export const SIGLA_POSICOES = {
   meioCampo: 4,
   atacante: 5
 }
-const timeCompleto = [
+let timeCompleto = [
   {
     posicao_id: SIGLA_POSICOES.goleiro,
-    apelido: 'Goleiro'
+    posicao: 'Goleiro',
+    apelido: 'Fabio',
+    clube_id: '',
+    clube: 'Fluminense',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.zagueiro,
-    apelido: 'Zagueiro'
+    posicao: 'Zagueiro',
+    apelido: 'Zagueiro',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.zagueiro,
-    apelido: 'Zagueiro'
+    posicao: 'Zagueiro',
+    apelido: 'Zagueiro',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.lateral,
-    apelido: 'Lateral'
+    posicao: 'Lateral',
+    apelido: 'Lateral',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.lateral,
-    apelido: 'Lateral'
+    posicao: 'Lateral',
+    apelido: 'Lateral',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.meioCampo,
-    apelido: 'Meio'
+    posicao: 'Meia',
+    apelido: 'Meia',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.meioCampo,
-    apelido: 'Meio'
+    posicao: 'Meia',
+    apelido: 'Meia',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.meioCampo,
-    apelido: 'Meio'
+    posicao: 'Meia',
+    apelido: 'Meia',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.atacante,
-    apelido: 'Atacante'
+    posicao: 'Atacante',
+    apelido: 'Atacante',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.atacante,
-    apelido: 'Atacante'
+    posicao: 'Atacante',
+    apelido: 'Atacante',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   },
   {
     posicao_id: SIGLA_POSICOES.atacante,
-    apelido: 'Atacante'
+    posicao: 'Atacante',
+    apelido: 'Atacante',
+    clube_id: '',
+    clube: '',
+    fotoClube: '',
+    fotoPlayer: '',
+    isScaled: false
   }
 ]
 
@@ -68,45 +145,97 @@ export function Home() {
   const [athletes, setAthletes] = useState([])
   const [club, setClube] = useState([])
   const [positions, setPositions] = useState([])
+  const [isModal, setIsModal] = useState(false)
   const [playerScaled, setPlayerScaled] = useState(timeCompleto)
-
+  const [posicaoIdSelect, setPosicaoIdSelect] = useState('')
   
 
   useEffect(() => {
-    fetch('https://api.cartola.globo.com/atletas/mercado')
-    .then(res => res.json())
-    .then(data => {
+
+    const fetchApi = async () => {
+      const response = await fetch('https://api.cartola.globo.com/atletas/mercado')
+      const data  = await response.json()
+
       setAthletes(data.atletas)
       setClube(data.clubes)
-      setPositions(data)
-      console.log(data)
-    })
+      setPositions(data.posicoes)
+    }  
+  
+    fetchApi()
     
   }, [])
 
+  function handleSelectPlayer(posicao) {
+    const listPlasyersSlect = athletes.filter(item => item.posicao_id === posicao)
+    
+    
+    setPosicaoIdSelect(listPlasyersSlect)
+    setIsModal(true)
+  }
 
-
-  
+  function handleScaled(apelido, posicao_id) {
+    const newScaled = playerScaled.filter(item  => item.posicao_id == posicao_id && !item.isScaled)
+    
+    const newScaledSelect = {
+      ...newScaled[0],
+      apelido: apelido
+    }
+  }
 
   return (
     <Container>
       <Header/>
       <Content>
-        <ContentCampo>
-          <BoxCampo>
-          <img src={Campo}/>
-            {playerScaled.map((item, index) => (
-                <PerfilPlayer posicao_id={item.posicao_id} idPlayer={index + 1} apelido={item.apelido}/>
-            ))}
-          </BoxCampo>
-          {/* <BoxEscalation>
-            <h2>Jogadores</h2>
-            <div>
-
-            </div>
-          </BoxEscalation> */}
-        </ContentCampo>
+        <ContainerCampo>
+          <ContentCampo>
+            <BoxCampo >
+              <img src={Campo}/>
+              {playerScaled.map((item, index) => (
+                  <PerfilPlayer key={index} posicao_id={item.posicao_id} idPlayer={index + 1} apelido={item.apelido} onClick={() => handleSelectPlayer(item.posicao_id)}/>
+              ))}
+            </BoxCampo>
+            <BoxEscalation>
+              <h2>Jogadores:</h2>
+              <ContainerPerfilPlayers>
+                {playerScaled.map((item, index) => 
+                  <PerfilPlayerScaled
+                    key={index}
+                    name={item.apelido}
+                    isChoose={item.isScaled} 
+                    fotoPlayer={item.fotoPlayer}
+                    fotoClube={item.fotoClube}
+                    clube={item.clube}
+                    posicao={item.posicao}
+                  />
+                
+                )}
+              </ContainerPerfilPlayers>
+            </BoxEscalation>
+          </ContentCampo>
+        </ContainerCampo>
       </Content>
+
+      {isModal && (
+        <ContainerModal onClick={() => setIsModal(false)}>
+          {posicaoIdSelect.map((item, index) => (
+            <Content key={index}>
+              <div>
+                
+                <PerfilPlayerScaled
+                  onClick={() => handleScaled(item.apelido, item.posicao_id)}
+                  name={item.apelido}
+                  isChoose
+                  urlCLube={club[item.clube_id].escudos['60x60']}
+                  clube={club[item.clube_id].nome}
+                  posicao={positions[item.posicao_id]?.nome}
+                  urlPlayer={item?.foto}
+                  // urlPlayer={item.foto?.replace('FORMATO', "220x220")}
+                />
+              </div>
+            </Content>
+          ))}
+        </ContainerModal>
+      )}
     </Container>
   )
 } 
