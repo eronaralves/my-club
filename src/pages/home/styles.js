@@ -98,7 +98,7 @@ export const ContainerPerfilPlayers = styled.div`
 
 export const ContainerModal = styled.div`
   width: 100%;
-  height: 100%;
+
   background-color: aqua;
   z-index: 10;
   position: absolute;
