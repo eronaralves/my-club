@@ -8,8 +8,6 @@ export const ContainerPlayer = styled.div`
   position: absolute;
 
   cursor: pointer;
-  padding: 10px;
-  
 
   img {
     width: 100%;
@@ -116,7 +114,7 @@ export const ContainerPlayer = styled.div`
 
   @media(max-width: 530px) {
     width: 100%;
-    max-width: 60px;
+    max-width: 55px;
 
     img {
       width: 100%;
@@ -125,7 +123,8 @@ export const ContainerPlayer = styled.div`
   }
 
   @media(max-width: 390px) {
-
+    width: 100%;
+    max-width: 42px;
 
     ${props => {
       if(props.posicao === 4) {
@@ -144,13 +143,24 @@ export const DescriptionPlayer = styled.div`
   justify-content: center;
 
   width: 100%;
-  height: 14px;
   
   border-radius: 0px 0px 4px 4px;
-  
+  padding: 2px;
   background-color: #FFCB0A;
   
   h2 {
-    font-size: 8px;
+    font-size: 12px;
+  }
+
+  @media(max-width: 530px) {
+    h2 {
+      font-size: 10px;
+    }
+  }
+
+  @media(max-width: 390px) {
+    h2 {
+      font-size: 8px;
+    }
   }
 `
